@@ -2,16 +2,16 @@ let apiQuotes = [];
 
 // Get quotes from API: type.fit/api/quotes
 async function getQuotes() {
-    const apiUrl = 'type.fit/api/quotes';
+    loading();
+    const apiUrl = 'https://type.fit/api/quotes';
     try {
-        // await so that fetched only after data loaded
-        const response = await fetch(apiUrl);
-        apiQuotes = await response.json();
-        console.log(apiQuotes);
+      const response = await fetch(apiUrl);
+      apiQuotes = await response.json();
+      newQuote();
     } catch (error) {
-        // catch error
+      // Catch Error Here
     }
-}
+  }
 
 // on load of webpage
 getQuotes();
