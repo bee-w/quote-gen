@@ -41,24 +41,12 @@ function newQuote() {
 // Try API, back up from local file
 async function getQuotes() {
     addLoader();
-    const apiUrl = 'https://type.fit/api/quotces';
+    const apiUrl = 'https://type.fit/api/quotes';
     try {
       const response = await fetch(apiUrl);
       allQuotes = await response.json();
       newQuote();
     } catch (error) {
-        // const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-        // if (!quote.author) {
-        //     authorText.textContent = 'Unkown';
-        // } else {
-        //     authorText.textContent = quote.author;
-        // }
-
-        // if (quote.text.length > 120) {
-        //     quoteText.classList.add('long-quote');
-        // } else {
-        //     quoteText.classList.remove('long-quote');
-        // }
         allQuotes = localQuotes;
         newQuote();
         console.log("error with API");
