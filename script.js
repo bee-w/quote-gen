@@ -5,24 +5,24 @@ const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
-let apiQuotes = [];
+let allQuotes = [];
 
 // Loader
-function getLoader() {
+function addLoader() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
 // Finished Loading
-function gotLoader() {
+function removeLoader() {
     quoteContainer.hidden = false;
     loader.hidden = true;
 }
 
 // Get quotes from API
 function newQuote() {
-    getLoader();
-    const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
+    addLoader();
+    const quote = allQuotes[Math.floor(Math.random() * allQuotes.length)];
     if (!quote.author) {
         authorText.textContent = 'Unkown';
     } else {
@@ -35,33 +35,33 @@ function newQuote() {
         quoteText.classList.remove('long-quote');
     }
     quoteText.textContent = quote.text;
-    gotLoader();
+    removeLoader();
 }
 
 // Try API, back up from local file
 async function getQuotes() {
-    getLoader();
-    const apiUrl = 'https://type.fit/api/quotes';
+    addLoader();
+    const apiUrl = 'https://type.fit/api/quotces';
     try {
       const response = await fetch(apiUrl);
-      apiQuotes = await response.json();
+      allQuotes = await response.json();
       newQuote();
     } catch (error) {
-        const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-        if (!quote.author) {
-            authorText.textContent = 'Unkown';
-        } else {
-            authorText.textContent = quote.author;
-        }
+        // const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+        // if (!quote.author) {
+        //     authorText.textContent = 'Unkown';
+        // } else {
+        //     authorText.textContent = quote.author;
+        // }
 
-        if (quote.text.length > 120) {
-            quoteText.classList.add('long-quote');
-        } else {
-            quoteText.classList.remove('long-quote');
-        }
-
-        quoteText.textContent = quote.text;
-        console.log("error with API")
+        // if (quote.text.length > 120) {
+        //     quoteText.classList.add('long-quote');
+        // } else {
+        //     quoteText.classList.remove('long-quote');
+        // }
+        allQuotes = localQuotes;
+        newQuote();
+        console.log("error with API");
     }
   }
 
